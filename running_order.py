@@ -50,11 +50,9 @@ def run():
                 if change_day:
                     day_counter += 1
                     current_day = days_of_week[day_counter]
-                    print(f"Día cambiado a: {current_day}")
                     change_day = False
                 
                 current_scenario = scenario_text
-                print(f"Escenario encontrado: {current_scenario}")
                 
                 # Marcar para cambiar de día después de "WASTELAND STAGE"
                 if current_scenario == "WASTELAND STAGE":
@@ -63,7 +61,6 @@ def run():
         elif item.name == 'div' and 'ro-list-time mr-2' in ' '.join(item.get('class', [])):
             # Extraer el rango horario
             current_time = item.get_text(strip=True)
-            print(f"Horario encontrado: {current_time}")
             
         elif item.name == "a":
             inside_a_tag = True
@@ -74,16 +71,10 @@ def run():
             artist = item.get_text(strip=True)
             if current_time and current_scenario:
                 # Agregar los datos a las listas solo si tiempo y escenario están definidos
-                
-                # Verificar si el nombre de la banda no contiene caracteres raros
-                
-                # excluded_terms = ["Metal Battle", "40", "Anniversary", "Show", "Years", "MB", "USA"]
-                # if all(term not in artist for term in excluded_terms):
                 days.append(current_day)
                 scenarios.append(current_scenario)
                 times.append(current_time)
                 artists.append(artist)
-                print(f"Artista agregado: {artist} en {current_day}, {current_scenario}, {current_time}")
 
     # Crear un DataFrame con los datos extraídos
     data = {

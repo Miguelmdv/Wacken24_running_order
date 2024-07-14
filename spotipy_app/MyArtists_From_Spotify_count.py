@@ -50,11 +50,6 @@ def run():
     # Convierte el diccionario en una lista de tuplas (artista, número de canciones)
     liked_artists_list = [(artist, count) for artist, count in liked_artists_count.items()]
 
-    # Imprime la lista de artistas y el número de canciones
-    print("Lista de artistas a los que has dado me gusta y el número de canciones:")
-    for artist, count in liked_artists_list:
-        print(f"{artist}: {count}")
-
     # Crea un DataFrame a partir de la lista de tuplas
     df = pd.DataFrame(liked_artists_list, columns=["Artista", "Numero de Canciones"])
 

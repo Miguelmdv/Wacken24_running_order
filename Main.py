@@ -3,6 +3,7 @@ import running_order
 import os
 from dotenv import load_dotenv
 from pathlib import Path
+from spotipy_app import Main
 
 def settings_persons(auto = True) -> list:
     people = []
@@ -14,22 +15,22 @@ def settings_persons(auto = True) -> list:
         people.append(os.getenv('PERSON_3'))
         
     else:
-        your_name = input("What is your name? ")
+        your_name = input("Como te llamas? ")
         
         people.append(your_name)
         
         num_people = 0
         while True:
-            response = input("How many people do you want to add? ")
+            response = input("Cuantas personas quieres añadir? ")
             try:
                 num_people = int(response)
                 break
             except ValueError:
-                print("That's not an number!")
+                print("Eso no es un número!")
                 
         if num_people > 0:
             for num in range(num_people):
-                name = input(f"Name of the person {str(num+1)}: ")
+                name = input(f"Nombre de la persona nº{str(num+1)}: ")
                 people.append(name)    
     return people
         
@@ -59,6 +60,8 @@ def data_merge(schedule_df : pd.DataFrame, songs_df: pd.DataFrame, direction : s
 
 
 if __name__ == "__main__":
+    Main.run()
+    
     running_order.run()
 
     # Leer el archivo CSV de horarios
@@ -76,14 +79,14 @@ if __name__ == "__main__":
 
     auto = True
     while True:
-        response = input("Do you want to auto-settings? Y/N: ")
+        response = input("Quieres usar los ajustes automáticos? Y/N: ")
         
         if response == "Y" or response == "y":
             break
         elif response == "N" or response == "n":
             auto = False
             break
-        print(f"{response} is not a valid character.")
+        print(f"{response} no es un carácter válido.")
     
     people = settings_persons(auto)
     

@@ -1,43 +1,43 @@
 from pathlib import Path
-import Wacken_Artist_From_html
-import MyArtists_From_Spotify_count   
-import Common_Artist_with_count
-import My_Wacken_Artist_to_Spotify
+from spotipy_app import Wacken_Artist_From_html
+from spotipy_app import MyArtists_From_Spotify_count   
+from spotipy_app import Common_Artist_with_count
+from spotipy_app import My_Wacken_Artist_to_Spotify
         
 def main_path():
         
     try:
         Wacken_Artist_From_html.run()
     except Exception as e:
-        print(f"Error while running script: {e}")
+        print(f"Error al ejecutar el script: {e}")
         return
     
     try:
         MyArtists_From_Spotify_count.run()
     except Exception as e:
-        print(f"Error while running script: {e}")
+        print(f"Error al ejecutar el script: {e}")
         return
     
     try:
         Common_Artist_with_count.run()
     except Exception as e:
-        print(f"Error while running script: {e}")
+        print(f"Error al ejecutar el script: {e}")
         return
     
 def main_to_spotify():
     while True:
-        response = input("Do you want to create a playlist with all your favorite songs of the artists in wacken? Y/N: ")
+        response = input("Quieres crear una lista de reproducción con todas tus canciones favoritas de los artistas del Wacken? Y/N: ")
         
         if response == "Y" or response == "y":
             try:
                 My_Wacken_Artist_to_Spotify.run()
             except Exception as e:
-                print(f"Error while running script: {e}")
+                print(f"Error al ejecutar el script: {e}")
                 return
             break
         elif response == "N" or response == "n":
             break
-        print(f"{response} is not a valid character.")
+        print(f"{response} no es un carácter válido.")
     
 def run():
     
@@ -49,13 +49,13 @@ def run():
     # Verifica si el archivo CSV existe
     if csv_file_path.exists():
         while True:
-            response = input("You have already data. Do you want to reload all of your data of your favorite songs of the artists in wacken? Y/N: ")
+            response = input("Ya existen datos. Qioeres recargar todos los datos de tus canciones favoritas de los artistas del Wacken? Y/N: ")
             if response == "Y" or response == "y":
                 main_path()
                 break
             elif response == "N" or response == "n":
                 break
-            print(f"{response} is not a valid character.")
+            print(f"{response} no es un carácter válido.")
         main_to_spotify()
     else:
         main_path()
