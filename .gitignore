@@ -10,21 +10,8 @@ Bands _ Wacken Open Air_files/
 # Ignorar todos los archivos dentro de cualquier carpeta llamada 'data' en cualquier parte del proyecto
 **/data/**
 
-# Pero no ignorar las carpetas llamadas 'data'
-!**/data/
-
-# Asegurar que los archivos .gitkeep no sean ignorados
-!**/data/**/.gitkeep
-
 # Ignorar todos los archivos dentro de cualquier carpeta llamada 'data' en cualquier parte del proyecto
 **/html/**
-
-# Pero no ignorar las carpetas llamadas 'data'
-!**/html/
-
-# Asegurar que los archivos .gitkeep no sean ignorados
-!**/html/**/.gitkeep
-
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

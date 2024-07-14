@@ -1,10 +1,10 @@
-import os
+from pathlib import Path
 import Wacken_Artist_From_html
 import MyArtists_From_Spotify_count   
 import Common_Artist_with_count
 import My_Wacken_Artist_to_Spotify
         
-def main():
+def main_path():
         
     try:
         Wacken_Artist_From_html.run()
@@ -39,28 +39,27 @@ def main_to_spotify():
             break
         print(f"{response} is not a valid character.")
     
-if __name__ == "__main__":
+def run():
     
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    # Ruta de la carpeta "data" dentro de la carpeta base
-    data_dir = os.path.join(base_dir, "data")
-
+    # Ruta de la carpeta "data"
+    csv_file_path = Path("data/liked_artists_wacken_with_count.csv")
     # Si la carpeta "data" no existe, créala
-    if not os.path.exists(data_dir):
-        os.makedirs(data_dir)
-    csv_file_path = os.path.join(data_dir, "liked_artists_wacken_with_count.csv")
+    csv_file_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Verifica si el archivo CSV existe
-    if os.path.exists(csv_file_path):
+    if csv_file_path.exists():
         while True:
             response = input("You have already data. Do you want to reload all of your data of your favorite songs of the artists in wacken? Y/N: ")
             if response == "Y" or response == "y":
-                main()
+                main_path()
                 break
             elif response == "N" or response == "n":
                 break
             print(f"{response} is not a valid character.")
         main_to_spotify()
     else:
-        main()
+        main_path()
         main_to_spotify()
+        
+if __name__ == "__main__":
+    run()

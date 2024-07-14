@@ -1,32 +1,14 @@
-import os
 from bs4 import BeautifulSoup
 import pandas as pd
+from pathlib import Path
 
 
 def run():
-# Obtener la ruta del directorio del script
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-
 
     # Ruta completa de la carpeta "html"
-    html_dir = os.path.join(script_dir, 'html')
-
+    html_file = Path("html/Bands _ Wacken Open Air.html")
     # Si la carpeta "html" no existe, crearla
-    if not os.path.exists(html_dir):
-        os.makedirs(html_dir)
-        
-    # Ruta al archivo HTML local
-    html_file = os.path.join(html_dir, 'Bands _ Wacken Open Air.html')
-
-    # Ruta completa de la carpeta "data"
-    data_dir = os.path.join(script_dir, 'data')
-
-    # Si la carpeta "data" no existe, crearla
-    if not os.path.exists(data_dir):
-        os.makedirs(data_dir)
-
-    # Ruta completa para el archivo CSV
-    csv_file = os.path.join(data_dir, 'band_list.csv')
+    html_file.parent.mkdir(parents=True, exist_ok=True)
 
     # Abrir el archivo HTML y leer su contenido
     with open(html_file, 'r', encoding='utf-8') as f:
@@ -63,6 +45,11 @@ def run():
 
     # Convertir el conjunto a una lista
     band_names = list(band_names_set)
+    
+    # Ruta completa de la carpeta "data"
+    csv_file = Path("data/band_list.csv")
+    # Si la carpeta "data" no existe, crearla
+    csv_file.parent.mkdir(parents=True, exist_ok=True)
 
     # Crear un DataFrame con los data y guardarlos en un archivo CSV
     df = pd.DataFrame(band_names, columns=['Artista'])

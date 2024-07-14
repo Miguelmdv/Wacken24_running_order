@@ -6,19 +6,13 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 def run():
-    base_dir = os.path.dirname(os.path.abspath(__file__))
-    # Ruta de la carpeta "data" dentro de la carpeta base
-    data_dir = os.path.join(base_dir, "data")
-
+    
+    csv_file_path = Path("data/liked_artists_wacken_with_count.csv")
     # Si la carpeta "data" no existe, créala
-    if not os.path.exists(data_dir):
-        os.makedirs(data_dir)
-
-    # Ruta completa del archivo CSV dentro de la carpeta "data"
-    csv_file_path = os.path.join(data_dir, "liked_artists_wacken_with_count.csv")
+    csv_file_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Verifica si el archivo CSV existe
-    if not os.path.exists(csv_file_path):
+    if not csv_file_path.exists():
         print("El archivo CSV no existe.")
         exit()
 
@@ -32,7 +26,7 @@ def run():
             yield lst[i:i + n]
 
     # from dotenv import load_dotenv
-    dotenv_path = Path('Spotipy\.env')
+    dotenv_path = Path('Spotipy/.env')
     load_dotenv(dotenv_path=dotenv_path)
     
     # Configura tu información de autenticación de Spotify

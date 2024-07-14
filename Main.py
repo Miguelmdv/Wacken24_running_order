@@ -7,7 +7,7 @@ from pathlib import Path
 def settings_persons(auto = True) -> list:
     people = []
     if auto:
-        dotenv_path = Path('Spotipy\.env')
+        dotenv_path = Path('Spotipy/.env')
         load_dotenv(dotenv_path=dotenv_path)
         people.append(os.getenv('PERSON_1'))
         people.append(os.getenv('PERSON_2'))
@@ -33,7 +33,7 @@ def settings_persons(auto = True) -> list:
                 people.append(name)    
     return people
         
-def data_merge(schedule_df : pd.DataFrame, songs_df: pd.DataFrame, direction : str, nombre_archivo : str, ruta : str, people : list, drop = False):
+def data_merge(schedule_df : pd.DataFrame, songs_df: pd.DataFrame, direction : str, complete_rute : Path, people : list, drop = False):
     
     # Unir los DataFrames por la columna 'Artista'
     merged_df = pd.merge(schedule_df, songs_df, on='Artista', how=direction)
@@ -51,21 +51,21 @@ def data_merge(schedule_df : pd.DataFrame, songs_df: pd.DataFrame, direction : s
     #Deja solo las vacias
     if drop:
         merged_df = merged_df[merged_df['Día'].isna()]
-    
-    # Guardar el DataFrame resultante en un nuevo archivo CSV
-    merged_df.to_csv(ruta + nombre_archivo, index=False)
 
-    print("Datos combinados y exportados a " + ruta + nombre_archivo)
+    # Guardar el DataFrame resultante en un nuevo archivo CSV
+    merged_df.to_csv(complete_rute, index=False)
+
+    print(f"Datos combinados y exportados a {complete_rute}")
 
 
 if __name__ == "__main__":
     running_order.run()
 
     # Leer el archivo CSV de horarios
-    schedule_df = pd.read_csv('data\wacken_schedule.csv')
+    schedule_df = pd.read_csv('data/wacken_schedule.csv')
 
     # Leer el segundo archivo CSV con los artistas y número de canciones
-    songs_df = pd.read_csv('Spotipy\data\liked_artists_wacken_with_count.csv')
+    songs_df = pd.read_csv('Spotipy/data/liked_artists_wacken_with_count.csv')
 
     # Dividir la columna 'Horario' en 'Hora Inicio' y 'Hora Fin'
     schedule_df[['Hora_Inicio', 'Hora_Fin']] = schedule_df['Horario'].str.split(' - ', expand=True)
@@ -86,5 +86,9 @@ if __name__ == "__main__":
         print(f"{response} is not a valid character.")
     
     people = settings_persons(auto)
-    data_merge(schedule_df, songs_df, "left", "wacken_schedule_merged.csv", "data\\", people)
-    data_merge(schedule_df, songs_df, "right", "wacken_schedule_void.csv", "data\\", people, drop=True)
+    
+    merged_rute = Path('data/wacken_schedule_merged.csv')
+    void_rute = Path('data/wacken_schedule_void.csv')
+    
+    data_merge(schedule_df, songs_df, "left", merged_rute, people)
+    data_merge(schedule_df, songs_df, "right", void_rute, people, drop=True)

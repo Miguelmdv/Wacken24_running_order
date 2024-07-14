@@ -6,31 +6,17 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 def run():
-    # Ruta de la carpeta base
-    base_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    cache_file_path = Path(".cache/.cache")
+    # Si la carpeta ".cache" no existe, créala
+    cache_file_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Ruta de la carpeta "cache" dentro de la carpeta base
-    cache_dir = os.path.join(base_dir, '.cache')
-
-    # Si la carpeta "cache" no existe, créala
-    if not os.path.exists(cache_dir):
-        os.makedirs(cache_dir)
-
-    # Ruta completa del archivo de caché dentro de la carpeta "cache"
-    cache_file_path = os.path.join(cache_dir, '.cache')
-
-    # Ruta de la carpeta "data" dentro de la carpeta base
-    data_dir = os.path.join(base_dir, "data")
-
+    csv_file_path = Path("data/liked_artists_spoti_with_count.csv")
     # Si la carpeta "data" no existe, créala
-    if not os.path.exists(data_dir):
-        os.makedirs(data_dir)
-
-    # Ruta completa del archivo CSV dentro de la carpeta "data"
-    csv_file_path = os.path.join(data_dir, "liked_artists_spoti_with_count.csv")
+    csv_file_path.parent.mkdir(parents=True, exist_ok=True)
 
     # from dotenv import load_dotenv
-    dotenv_path = Path('Spotipy\.env')
+    dotenv_path = Path('Spotipy/.env')
     load_dotenv(dotenv_path=dotenv_path)
     
     # Configura tu información de autenticación de Spotify

@@ -1,9 +1,15 @@
+from pathlib import Path
 import pandas as pd
 from bs4 import BeautifulSoup
 
 def run():
+    # Ruta completa de la carpeta "html"
+    html_file = Path("html/Running Order Music _ Wacken Open Air.html")
+    # Si la carpeta "html" no existe, crearla
+    html_file.parent.mkdir(parents=True, exist_ok=True) 
+
     # Cargar el contenido del archivo HTML
-    with open('html/Running Order Music _ Wacken Open Air.html', 'r', encoding='utf-8') as file:
+    with open(html_file, 'r', encoding='utf-8') as file:
         html_content = file.read()
 
     # Parsear el contenido del archivo HTML con BeautifulSoup
@@ -88,8 +94,11 @@ def run():
     }
     df = pd.DataFrame(data)
 
-    rute = 'data/wacken_schedule.csv'
+    
     # Exportar el DataFrame a un archivo CSV
+    rute = Path('data/wacken_schedule.csv')
+    rute.parent.mkdir(parents=True, exist_ok=True)
+
     df.to_csv(rute, index=False)
 
-    print("Datos exportados a " + rute)
+    print(f"Datos exportados a {rute}")
