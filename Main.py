@@ -7,7 +7,7 @@ from pathlib import Path
 def settings_persons(auto = True) -> list:
     people = []
     if auto:
-        dotenv_path = Path('Spotipy/.env')
+        dotenv_path = Path('spotipy_app/.env')
         load_dotenv(dotenv_path=dotenv_path)
         people.append(os.getenv('PERSON_1'))
         people.append(os.getenv('PERSON_2'))
@@ -62,10 +62,10 @@ if __name__ == "__main__":
     running_order.run()
 
     # Leer el archivo CSV de horarios
-    schedule_df = pd.read_csv('data/wacken_schedule.csv')
+    schedule_df = pd.read_csv('data/wacken_running_order.csv')
 
     # Leer el segundo archivo CSV con los artistas y número de canciones
-    songs_df = pd.read_csv('Spotipy/data/liked_artists_wacken_with_count.csv')
+    songs_df = pd.read_csv('spotipy_app/data/liked_artists_wacken_with_count.csv')
 
     # Dividir la columna 'Horario' en 'Hora Inicio' y 'Hora Fin'
     schedule_df[['Hora_Inicio', 'Hora_Fin']] = schedule_df['Horario'].str.split(' - ', expand=True)
@@ -87,8 +87,8 @@ if __name__ == "__main__":
     
     people = settings_persons(auto)
     
-    merged_rute = Path('data/wacken_schedule_merged.csv')
-    void_rute = Path('data/wacken_schedule_void.csv')
+    merged_rute = Path('data/wacken_running_order_merged.csv')
+    void_rute = Path('data/wacken_running_order_void.csv')
     
     data_merge(schedule_df, songs_df, "left", merged_rute, people)
     data_merge(schedule_df, songs_df, "right", void_rute, people, drop=True)

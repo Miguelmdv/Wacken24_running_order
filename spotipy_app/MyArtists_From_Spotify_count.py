@@ -7,16 +7,16 @@ from pathlib import Path
 
 def run():
     
-    cache_file_path = Path(".cache/.cache")
+    cache_file_path = Path("spotipy_app/.cache/.cache")
     # Si la carpeta ".cache" no existe, créala
     cache_file_path.parent.mkdir(parents=True, exist_ok=True)
 
-    csv_file_path = Path("data/liked_artists_spoti_with_count.csv")
+    csv_file_path = Path("spotipy_app/data/liked_artists_spoti_with_count.csv")
     # Si la carpeta "data" no existe, créala
     csv_file_path.parent.mkdir(parents=True, exist_ok=True)
 
     # from dotenv import load_dotenv
-    dotenv_path = Path('Spotipy/.env')
+    dotenv_path = Path('spotipy_app/.env')
     load_dotenv(dotenv_path=dotenv_path)
     
     # Configura tu información de autenticación de Spotify

@@ -7,7 +7,7 @@ from pathlib import Path
 
 def run():
     
-    csv_file_path = Path("data/liked_artists_wacken_with_count.csv")
+    csv_file_path = Path("spotipy_app/data/liked_artists_wacken_with_count.csv")
     # Si la carpeta "data" no existe, créala
     csv_file_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -26,7 +26,7 @@ def run():
             yield lst[i:i + n]
 
     # from dotenv import load_dotenv
-    dotenv_path = Path('Spotipy/.env')
+    dotenv_path = Path('spotipy_app/.env')
     load_dotenv(dotenv_path=dotenv_path)
     
     # Configura tu información de autenticación de Spotify

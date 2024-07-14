@@ -96,7 +96,7 @@ def run():
 
     
     # Exportar el DataFrame a un archivo CSV
-    rute = Path('data/wacken_schedule.csv')
+    rute = Path('data/wacken_running_order.csv')
     rute.parent.mkdir(parents=True, exist_ok=True)
 
     df.to_csv(rute, index=False)

@@ -42,7 +42,7 @@ def main_to_spotify():
 def run():
     
     # Ruta de la carpeta "data"
-    csv_file_path = Path("data/liked_artists_wacken_with_count.csv")
+    csv_file_path = Path("spotipy_app/data/liked_artists_wacken_with_count.csv")
     # Si la carpeta "data" no existe, créala
     csv_file_path.parent.mkdir(parents=True, exist_ok=True)
 

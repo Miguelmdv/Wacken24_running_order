@@ -6,7 +6,7 @@ from pathlib import Path
 def run():
 
     # Ruta completa de la carpeta "html"
-    html_file = Path("html/Bands _ Wacken Open Air.html")
+    html_file = Path("spotipy_app/html/Bands _ Wacken Open Air.html")
     # Si la carpeta "html" no existe, crearla
     html_file.parent.mkdir(parents=True, exist_ok=True)
 
@@ -47,7 +47,7 @@ def run():
     band_names = list(band_names_set)
     
     # Ruta completa de la carpeta "data"
-    csv_file = Path("data/band_list.csv")
+    csv_file = Path("spotipy_app/data/band_list.csv")
     # Si la carpeta "data" no existe, crearla
     csv_file.parent.mkdir(parents=True, exist_ok=True)
 
