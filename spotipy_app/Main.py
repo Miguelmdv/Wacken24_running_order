@@ -42,14 +42,12 @@ def main_to_spotify():
 def run():
     
     # Ruta de la carpeta "data"
-    csv_file_path = Path("spotipy_app/data/liked_artists_wacken_with_count.csv")
-    # Si la carpeta "data" no existe, créala
-    csv_file_path.parent.mkdir(parents=True, exist_ok=True)
-
+    csv_file_path = Path("spotipy_app/data/all_liked_artists_wacken_with_count.csv")
+    
     # Verifica si el archivo CSV existe
     if csv_file_path.exists():
         while True:
-            response = input("Ya existen datos. Qioeres recargar todos los datos de tus canciones favoritas de los artistas del Wacken? Y/N: ")
+            response = input("Ya existen datos. Quieres recargar todos los datos de tus canciones favoritas de los artistas del Wacken? Y/N: ")
             if response == "Y" or response == "y":
                 main_path()
                 break

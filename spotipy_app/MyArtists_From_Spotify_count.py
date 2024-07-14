@@ -1,4 +1,4 @@
-import os
+from os import getenv
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import pandas as pd
@@ -20,9 +20,9 @@ def run():
     load_dotenv(dotenv_path=dotenv_path)
     
     # Configura tu información de autenticación de Spotify
-    client_id = os.getenv('CLIENT_ID')
-    client_secret = os.getenv('CLIENT_SECRET')
-    redirect_uri = os.getenv('REDIRECT_URI')
+    client_id = getenv('CLIENT_ID')
+    client_secret = getenv('CLIENT_SECRET')
+    redirect_uri = getenv('REDIRECT_URI')
 
     # Inicializa el objeto SpotifyOAuth
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,

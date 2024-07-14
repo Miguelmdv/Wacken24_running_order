@@ -1,6 +1,6 @@
 import pandas as pd
 import running_order
-import os
+from os import getenv
 from dotenv import load_dotenv
 from pathlib import Path
 from spotipy_app import Main
@@ -10,9 +10,9 @@ def settings_persons(auto = True) -> list:
     if auto:
         dotenv_path = Path('spotipy_app/.env')
         load_dotenv(dotenv_path=dotenv_path)
-        people.append(os.getenv('PERSON_1'))
-        people.append(os.getenv('PERSON_2'))
-        people.append(os.getenv('PERSON_3'))
+        people.append(getenv('PERSON_1'))
+        people.append(getenv('PERSON_2'))
+        people.append(getenv('PERSON_3'))
         
     else:
         your_name = input("Como te llamas? ")
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     schedule_df = pd.read_csv('data/wacken_running_order.csv')
 
     # Leer el segundo archivo CSV con los artistas y número de canciones
-    songs_df = pd.read_csv('spotipy_app/data/liked_artists_wacken_with_count.csv')
+    songs_df = pd.read_csv('spotipy_app/data/all_liked_artists_wacken_with_count.csv')
 
     # Dividir la columna 'Horario' en 'Hora Inicio' y 'Hora Fin'
     schedule_df[['Hora_Inicio', 'Hora_Fin']] = schedule_df['Horario'].str.split(' - ', expand=True)
