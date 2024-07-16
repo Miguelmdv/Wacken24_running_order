@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 def run():
     # Ruta completa de la carpeta "html"
-    html_file = Path("html/Running Order Music _ Wacken Open Air.html")
+    html_file = Path("html/Complete Running Order _ Wacken Open Air.html")
     # Si la carpeta "html" no existe, crearla
     html_file.parent.mkdir(parents=True, exist_ok=True) 
 
@@ -22,9 +22,9 @@ def run():
     artists = []
 
     # Variables de control para el día y escenario actuales
-    current_day = "Wednesday"
+    current_day = "Miércoles"
     day_counter = 0
-    days_of_week = ["Wednesday", "Thursday", "Friday", "Saturday"]
+    days_of_week = ["Miércoles", "Jueves", "Viernes", "Sábado"]
 
     # Inicializar variables para el tiempo y escenario actuales
     current_time = None
@@ -35,7 +35,8 @@ def run():
         "FASTER", "LOUDER", "HEADBANGERS STAGE", "W:E:T STAGE", 
         "WACKINGER STAGE", "WASTELAND STAGE", "HARDER"
     ]
-
+    # Variable para indicar si el escenario actual es el deseado
+    wanted_scenario = False
     # Variable para indicar si cambiar de día
     change_day = False
     # Variable para saber si estamos dentro de una etiqueta <a>
@@ -47,6 +48,7 @@ def run():
             # Cambiar de escenario solo si está en la lista de escenarios reconocidos
             scenario_text = item.get_text(strip=True).upper()
             if scenario_text in recognized_scenarios:
+                wanted_scenario = True
                 if change_day:
                     day_counter += 1
                     current_day = days_of_week[day_counter]
@@ -57,15 +59,17 @@ def run():
                 # Marcar para cambiar de día después de "WASTELAND STAGE"
                 if current_scenario == "WASTELAND STAGE":
                     change_day = True
+            else:
+                wanted_scenario = False
                     
-        elif item.name == 'div' and 'ro-list-time mr-2' in ' '.join(item.get('class', [])):
+        elif item.name == 'div' and 'ro-list-time mr-2' in ' '.join(item.get('class', [])) and wanted_scenario:
             # Extraer el rango horario
             current_time = item.get_text(strip=True)
             
-        elif item.name == "a":
+        elif item.name == "a" and wanted_scenario:
             inside_a_tag = True
             
-        elif item.name == 'strong' and inside_a_tag:
+        elif item.name == 'strong' and inside_a_tag and wanted_scenario:
             inside_a_tag = False
             # Extraer el nombre del artista
             artist = item.get_text(strip=True)
@@ -84,7 +88,6 @@ def run():
         'Artista': artists
     }
     df = pd.DataFrame(data)
-
     
     # Exportar el DataFrame a un archivo CSV
     rute = Path('data/wacken_running_order.csv')

@@ -52,7 +52,7 @@ def run():
     # Crear una nueva lista de reproducción
     user_id = sp.me()['id']
     playlist_name = 'My Wacken 2024 😎'
-    playlist_description = 'Lista creada con Spotipy a partir de un archivo CSV de artistas'
+    playlist_description = 'Lista creada automaticamente con Spotipy a partir de mis gustos personales de los artistas del Wacken 2024'
     playlist = sp.user_playlist_create(user=user_id, name=playlist_name, description=playlist_description)
 
     # Dividir la lista de URIs en grupos de máximo 100
