@@ -1,37 +1,61 @@
 import pandas as pd
 import running_order
-from os import getenv
-from dotenv import load_dotenv
+from dotenv import dotenv_values
 from pathlib import Path
 from spotipy_app import Main
 
+def write_env_file(path, env_vars):
+    with open(path, 'w') as f:
+        for key, value in env_vars.items():
+            f.write(f'{key}={value}\n')
+
+def clean_env_values(env_vars : dict) -> dict:
+    # Limpiar las variables sobrantes basadas en NUM_PEOPLE
+    num_people = int(env_vars.get('NUM_PEOPLE', 0))
+    keys_to_remove = [f'PERSON_{i}' for i in range(num_people + 1, len(env_vars) + 1) if f'PERSON_{i}' in env_vars]
+    
+    for key in keys_to_remove:
+        env_vars.pop(key)
+
+    return env_vars
+
 def settings_persons(auto = True) -> list:
     people = []
-    if auto:
-        dotenv_path = Path('spotipy_app/.env')
-        load_dotenv(dotenv_path=dotenv_path)
-        people.append(getenv('PERSON_1'))
-        people.append(getenv('PERSON_2'))
-        people.append(getenv('PERSON_3'))
-        
+    dotenv_path = Path('spotipy_app/.env')
+    
+    # Leer todas las variables del archivo .env
+    env_vars = dotenv_values(dotenv_path)
+    
+    if auto: 
+        # Recorrer los nombres de las personas y agregarlos a la lista de personas
+        for num in range(int(env_vars["NUM_PEOPLE"])):
+            people.append(env_vars[f"PERSON_{num+1}"])
     else:
         your_name = input("Como te llamas? ")
         
         people.append(your_name)
+        env_vars['PERSON_1'] = your_name
         
-        num_people = 0
         while True:
             response = input("Cuantas personas quieres añadir? ")
             try:
-                num_people = int(response)
+                # Convertir la respuesta en un número y sumarle 1 para incluir tu nombre
+                env_vars["NUM_PEOPLE"] = int(response)+1
                 break
             except ValueError:
                 print("Eso no es un número!")
                 
-        if num_people > 0:
-            for num in range(num_people):
+        if env_vars["NUM_PEOPLE"] > 1:
+            # Recorrer los nombres de las personas y agregarlos a la lista de personas
+            for num in range(int(env_vars["NUM_PEOPLE"])-1):
                 name = input(f"Nombre de la persona nº{str(num+1)}: ")
-                people.append(name)    
+                people.append(name)
+                env_vars[f'PERSON_{num+2}'] = name
+        
+        # Limpiar las variables sobrantes basadas en NUM_PEOPLE
+        env_vars = clean_env_values(env_vars)
+        # Escribir las variables modificadas de nuevo en el archivo .env
+        write_env_file(dotenv_path, env_vars)
     return people
         
 def data_merge(schedule_df : pd.DataFrame, songs_df: pd.DataFrame, direction : str, complete_rute : Path, people : list, drop = False):

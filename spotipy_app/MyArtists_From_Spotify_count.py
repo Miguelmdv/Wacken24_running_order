@@ -1,8 +1,7 @@
-from os import getenv
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import pandas as pd
-from dotenv import load_dotenv
+from dotenv import dotenv_values
 from pathlib import Path
 
 def run():
@@ -17,12 +16,13 @@ def run():
 
     # from dotenv import load_dotenv
     dotenv_path = Path('spotipy_app/.env')
-    load_dotenv(dotenv_path=dotenv_path)
-    
+    # Leer todas las variables del archivo .env
+    env_vars = dotenv_values(dotenv_path)
+
     # Configura tu información de autenticación de Spotify
-    client_id = getenv('CLIENT_ID')
-    client_secret = getenv('CLIENT_SECRET')
-    redirect_uri = getenv('REDIRECT_URI')
+    client_id = env_vars["CLIENT_ID"]
+    client_secret = env_vars["ClIENT_SECRET"]
+    redirect_uri = env_vars["REDIRECT_URI"]
 
     # Inicializa el objeto SpotifyOAuth
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=client_id,
