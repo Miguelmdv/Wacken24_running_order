@@ -56,6 +56,3 @@ def run():
     df.to_csv(csv_file, index=False)
 
     print(f"La lista de bandas extraída del html de wacken.com ha sido guardada en {csv_file}")
-    
-if __name__ == "__main__":
-    run()

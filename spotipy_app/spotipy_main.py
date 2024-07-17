@@ -41,9 +41,9 @@ def custom_list_spotify():
         print(f"{response} no es un carácter válido.")
     
 def run():
-    
     # Ruta del archivo con todos los artistas de spotify
-    csv_file_path = Path("spotipy_app/data/liked_artists_spoti_with_count.csv")
+    # csv_file_path = Path("spotipy_app/data/liked_artists_spoti_with_count.csv")
+    csv_file_path = Path("spotipy_app/data/all_liked_artists_wacken_with_count.csv")
     
     # Verifica si el archivo CSV existe
     if csv_file_path.exists():
