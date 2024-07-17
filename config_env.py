@@ -18,7 +18,7 @@ def manage_env_file() -> tuple[dict[str, str], list]:
         dotenv_path.touch()
         dotenv_path.chmod(0o600)  # Permisos seguros: solo lectura/escritura para el propietario
         
-        print("Creando archivo .env por primera vez.")
+        print("Creando archivo de configuración por primera vez.")
         print("Introduce los datos de tu cuenta de Spotify.")
             
         # Pedir al usuario que ingrese los valores de las tres primeras variables
