@@ -1,5 +1,6 @@
 from dotenv import dotenv_values
 from pathlib import Path
+import subprocess
 
 def load_env_vars() -> dict[str, str]:
     dotenv_path = Path('.env')
@@ -9,17 +10,20 @@ def load_env_vars() -> dict[str, str]:
 def manage_env_file() -> tuple[dict[str, str], list]: 
     dotenv_path = Path('.env')
     # Crear el archivo .env si no existe
-    if dotenv_path.exists():
+    if dotenv_path.exists() and dotenv_path.stat().st_size > 0:
         # Si el archivo existe, carga las variables y devuelve env_vars y False
         env_vars = dotenv_values(dotenv_path)
         people = manage_settings(env_vars, True)
         return env_vars, people
     else:
+        # Crear el archivo vacío
         dotenv_path.touch()
-        dotenv_path.chmod(0o600)  # Permisos seguros: solo lectura/escritura para el propietario
+        subprocess.run(['attrib', '+h', str(dotenv_path)])
+            # Establecer permisos seguros
+        dotenv_path.chmod(0o600)
         
         print("Creando archivo de configuración por primera vez.")
-        print("Introduce los datos de tu cuenta de Spotify.")
+        print("Se necesitan los datos de desarrollador de Spotify.\n")
             
         # Pedir al usuario que ingrese los valores de las tres primeras variables
         client_id = input("Introduce CLIENT_ID: ")
@@ -37,14 +41,16 @@ def manage_env_file() -> tuple[dict[str, str], list]:
         
         write_env_file(env_vars)
         
-        print("Archivo .env creado y actualizado con las variables especificadas.")
-        
         people = manage_settings(env_vars, False)
+        
+        print("\nConfiguración guardada satisfactoriamente.")
+        
         return env_vars, people
 
 def write_env_file(env_vars : dict[str, str]):
     dotenv_path = Path('.env')
-    with open(dotenv_path, 'w') as f:
+    # Modo r+ para evitar permiso denegado al escribir
+    with open(dotenv_path, 'r+') as f:
         for key, value in env_vars.items():
             f.write(f'{key}={value}\n')
 
@@ -81,7 +87,7 @@ def settings_persons(env_vars : dict[str, str], auto = True) -> list:
         for num in range(int(env_vars["NUM_PEOPLE"])):
             people.append(env_vars[f"PERSON_{num+1}"])
     else:
-        your_name = input("Como te llamas? ")
+        your_name = input("\nComo te llamas? ")
         
         people.append(your_name)
         env_vars['PERSON_1'] = your_name
@@ -103,7 +109,7 @@ def settings_persons(env_vars : dict[str, str], auto = True) -> list:
                 env_vars[f'PERSON_{num+2}'] = name
         
         # Limpiar las variables sobrantes basadas en NUM_PEOPLE
-        env_vars = clean_env_person_values(env_vars)
+        # env_vars = clean_env_person_values(env_vars)
         # Escribir las variables modificadas de nuevo en el archivo .env
         write_env_file(env_vars)
     return people

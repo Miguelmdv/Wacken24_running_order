@@ -3,7 +3,7 @@ from pathlib import Path
 
 def run():
     
-    data_dir = Path("spotipy_app/data")
+    data_dir = Path("data")
     # Si la carpeta "data" no existe, créala
     data_dir.mkdir(parents=True, exist_ok=True)
     

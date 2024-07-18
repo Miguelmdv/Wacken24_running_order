@@ -1,5 +1,6 @@
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
+from spotipy.cache_handler import CacheFileHandler
 import pandas as pd
 from pathlib import Path
 from config_env import load_env_vars
@@ -19,10 +20,11 @@ def run():
             client_secret=client_secret,
             redirect_uri=redirect_uri,
             scope="user-library-read playlist-modify-public playlist-modify-private",
+            cache_handler=CacheFileHandler(),
         )
     )
 
-    csv_file_path = Path("spotipy_app/data/liked_artists_wacken_with_count.csv")
+    csv_file_path = Path("data/liked_artists_wacken_with_count.csv")
     # Leer el archivo CSV
     df = pd.read_csv(csv_file_path)
 

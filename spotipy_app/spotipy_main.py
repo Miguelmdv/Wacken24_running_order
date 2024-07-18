@@ -9,31 +9,33 @@ def main_path(load_spotify_data = True):
     try:
         Wacken_Artist_From_html.run()
     except Exception as e:
-        print(f"Error al ejecutar el script: {e}")
+        print(f"Error al leer el html: {e}")
         return
     # Carga los datos de Spotify
     if load_spotify_data:
         try:
+            print("\nCargando datos de Spotify...\n")
             MyArtists_From_Spotify_count.run()
         except Exception as e:
-            print(f"Error al ejecutar el script: {e}")
+            print(f"Error al cargar los datos de Spotify: {e}")
             return
     
     try:
         Common_Artist_with_count.run()
     except Exception as e:
-        print(f"Error al ejecutar el script: {e}")
+        print(f"Error al comparar los artistas de Spotify: {e}")
         return
     
 def custom_list_spotify():
     while True:
-        response = input("Quieres crear una lista de reproducción con todas tus canciones favoritas de los artistas del Wacken? Y/N: ")
+        response = input("\nQuieres crear una lista de reproducción con todas tus canciones favoritas de los artistas del Wacken? Y/N: ")
         
         if response == "Y" or response == "y":
             try:
+                print("\nCreando lista de reproducción en Spotify...\n")
                 My_Wacken_Artist_to_Spotify.run()
             except Exception as e:
-                print(f"Error al ejecutar el script: {e}")
+                print(f"Error al crear la lista de reproducción: {e}")
                 return
             break
         elif response == "N" or response == "n":
@@ -42,8 +44,7 @@ def custom_list_spotify():
     
 def run():
     # Ruta del archivo con todos los artistas de spotify
-    # csv_file_path = Path("spotipy_app/data/liked_artists_spoti_with_count.csv")
-    csv_file_path = Path("spotipy_app/data/all_liked_artists_wacken_with_count.csv")
+    csv_file_path = Path("data/all_liked_artists_wacken_with_count.csv")
     
     # Verifica si el archivo CSV existe
     if csv_file_path.exists():
@@ -60,6 +61,3 @@ def run():
     else:
         main_path()
         custom_list_spotify()
-        
-if __name__ == "__main__":
-    run()
