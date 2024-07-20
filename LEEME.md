@@ -40,7 +40,7 @@ https://www.wacken.com/en/
 
         https://www.wacken.com/en/program/bands/#/
 
-        https://www.wacken.com/en/program/running-order-music/#/
+        https://www.wacken.com/en/program/complete-running-order/#/
 
 ## Uso
    
@@ -90,7 +90,7 @@ https://www.wacken.com/en/
 
         https://www.wacken.com/en/program/bands/#/
 
-        https://www.wacken.com/en/program/running-order-music/#/
+        https://www.wacken.com/en/program/complete-running-order/#/
 
 ## Uso
 

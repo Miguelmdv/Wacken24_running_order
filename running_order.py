@@ -22,19 +22,20 @@ def run():
     artists = []
 
     # Variables de control para el día y escenario actuales
-    current_day = "Miércoles"
+    current_day = "Domingo"
     day_counter = 0
-    days_of_week = ["Miércoles", "Jueves", "Viernes", "Sábado"]
+    days_of_week = ("Domingo","Lunes","Martes","Miércoles", "Jueves", "Viernes", "Sábado")
 
     # Inicializar variables para el tiempo y escenario actuales
     current_time = None
     current_scenario = None
 
     # Lista de escenarios reconocidos
-    recognized_scenarios = [
+    recognized_scenarios = (
         "FASTER", "LOUDER", "HEADBANGERS STAGE", "W:E:T STAGE", 
-        "WACKINGER STAGE", "WASTELAND STAGE", "HARDER"
-    ]
+        "WACKINGER STAGE", "WASTELAND STAGE", "HARDER", 
+        "LGH CLUBSTAGE", "WELCOME TO THE JUNGLE"
+    )
     # Variable para indicar si el escenario actual es el deseado
     wanted_scenario = False
     # Variable para indicar si cambiar de día
@@ -56,8 +57,8 @@ def run():
                 
                 current_scenario = scenario_text
                 
-                # Marcar para cambiar de día después de "WASTELAND STAGE"
-                if current_scenario == "WASTELAND STAGE":
+                # Marcar para cambiar de día después de "LGH CLUBSTAGE"
+                if current_scenario == "LGH CLUBSTAGE":
                     change_day = True
             else:
                 wanted_scenario = False
