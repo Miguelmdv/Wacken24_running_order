@@ -3,7 +3,7 @@ from spotipy.oauth2 import SpotifyOAuth
 from spotipy.cache_handler import CacheFileHandler
 import pandas as pd
 from pathlib import Path
-from conf_app.config_env import load_env_vars
+from apps.conf_app.config_env import load_env_vars
 
 def run():
 

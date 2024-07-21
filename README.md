@@ -72,4 +72,4 @@ https://www.wacken.com/en/
 
    2. Answer with 'y' or 'n' to the different questions. For full functionality, always answer 'y'.
 
-   3. The final file with all the data is called ***wacken_running_order_merged.csv***, you can export it to Excel if you want.
+   3. The final file with all the data is in ***data*** folder and is called ***wacken_running_order_merged.csv***, you can export it to Excel if you want.

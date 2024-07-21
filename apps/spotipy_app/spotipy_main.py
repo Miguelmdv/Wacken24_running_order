@@ -1,8 +1,8 @@
 from pathlib import Path
-from spotipy_app import Wacken_Artist_From_html
-from spotipy_app import MyArtists_From_Spotify_count   
-from spotipy_app import Common_Artist_with_count
-from spotipy_app import My_Wacken_Artist_to_Spotify
+from apps.spotipy_app import Wacken_Artist_From_html
+from apps.spotipy_app import MyArtists_From_Spotify_count   
+from apps.spotipy_app import Common_Artist_with_count
+from apps.spotipy_app import My_Wacken_Artist_to_Spotify
         
 def main_path(load_spotify_data = True):
         

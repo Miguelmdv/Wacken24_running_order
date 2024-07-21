@@ -1,4 +1,4 @@
-import conf_app.edgenium as edgenium
+import apps.conf_app.edgenium as edgenium
 from pathlib import Path
 
 

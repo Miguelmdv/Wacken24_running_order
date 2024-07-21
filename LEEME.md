@@ -1,4 +1,4 @@
-# Wacken 2024 - Orden de actuación
+# Wacken 2024 - Horario de actuación
 
 Leer en [English](./README.md)
 
@@ -72,4 +72,4 @@ https://www.wacken.com/en/
 
    2. Responda con 'y' o 'n' a las diferentes preguntas. Para una funcionalidad completa, responda siempre con 'y'.
 
-   3. El fichero final con todos los datos se llama ***wacken_running_order_merged.csv***, puedes exportarlo a Excel si quieres.
+   3. El fichero final con todos los datos esta en la carpeta ***data*** y se llama ***wacken_running_order_merged.csv***, puedes exportarlo a Excel si quieres.
