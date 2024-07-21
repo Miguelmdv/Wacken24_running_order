@@ -50,11 +50,12 @@ def run():
         print(f"Por favor, asegúrese de que el archivo se encuentra en la ruta {msedgedriver_path}.")
         input("\nPresiona Enter para terminar...")
         exit("Programa cerrado.")
-    # ! elif not is_webdriver_in_path(driver_path):
-    # !     print("\nNo se encuentra la variable de entorno 'PATH' configurada.")
-    # !    print(f"Por favor, asegúrese de que añade el directorio {driver_path} al valor de la variable de entorno 'PATH'.")
-    # !     input("\nPresiona Enter para terminar...")
-    # !     exit("Programa cerrado.")
+        
+    elif not is_webdriver_in_path(str(driver_path)):
+        print("\nNo se encuentra la variable de entorno 'PATH' configurada.")
+        print(f"Por favor, asegúrese de que añade el directorio {driver_path} al valor de la variable de entorno 'PATH'.")
+        input("\nPresiona Enter para terminar...")
+        exit("Programa cerrado.")
         
     print("\nDescargando archivos HTML...\n")
     # Configurar el servicio de Egde con la ruta local al msedgedriver
