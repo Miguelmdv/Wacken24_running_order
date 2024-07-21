@@ -44,7 +44,7 @@ https://www.wacken.com/en/
   
         https://developer.microsoft.com/en-us/microsoft-edge/tools/webdriver/
 
-        C:\webdriver`.
+        `C:\webdriver`
 
     - Add to the windows user PATH the same path.
 
