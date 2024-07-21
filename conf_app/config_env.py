@@ -7,14 +7,14 @@ def load_env_vars() -> dict[str, str]:
     env_vars = dotenv_values(dotenv_path)
     return env_vars
 
-def manage_env_file() -> tuple[dict[str, str], list]: 
+def manage_env_file() -> list: 
     dotenv_path = Path('.env')
     # Crear el archivo .env si no existe
     if dotenv_path.exists() and dotenv_path.stat().st_size > 0:
         # Si el archivo existe, carga las variables y devuelve env_vars y False
         env_vars = dotenv_values(dotenv_path)
         people = manage_settings(env_vars, True)
-        return env_vars, people
+        return people
     else:
         # Crear el archivo vacío
         dotenv_path.touch()
@@ -22,7 +22,7 @@ def manage_env_file() -> tuple[dict[str, str], list]:
             # Establecer permisos seguros
         dotenv_path.chmod(0o600)
         
-        print("Creando archivo de configuración por primera vez.")
+        print("\nCreando archivo de configuración por primera vez.")
         print("Se necesitan los datos de desarrollador de Spotify.\n")
             
         # Pedir al usuario que ingrese los valores de las tres primeras variables
@@ -45,14 +45,7 @@ def manage_env_file() -> tuple[dict[str, str], list]:
         
         print("\nConfiguración guardada satisfactoriamente.")
         
-        return env_vars, people
-
-def write_env_file(env_vars : dict[str, str]):
-    dotenv_path = Path('.env')
-    # Modo r+ para evitar permiso denegado al escribir
-    with open(dotenv_path, 'r+') as f:
-        for key, value in env_vars.items():
-            f.write(f'{key}={value}\n')
+        return people
 
 def clean_env_person_values(env_vars : dict[str, str]) -> dict[str, str]:
     # Limpiar las variables sobrantes basadas en NUM_PEOPLE
@@ -67,14 +60,14 @@ def clean_env_person_values(env_vars : dict[str, str]) -> dict[str, str]:
 def manage_settings(env_vars : dict[str, str], auto_settings : bool) -> list:
     if auto_settings:
         while True:
-            response = input("Quieres usar los ajustes automáticos? Sino, podrás cambiar los nombres de las personas. Y/N: ")
+            response = input("\nQuieres usar los ajustes automáticos? Sino, podrás cambiar los nombres y numero de las personas.\nY/N: ")
             
             if response == "Y" or response == "y":
                 break
             elif response == "N" or response == "n":
                 auto_settings = False
                 break
-            print(f"{response} no es un carácter válido.")
+            print(f"'{response}' no es un carácter válido.")
     
     people = settings_persons(env_vars, auto_settings)
     return people
@@ -113,3 +106,10 @@ def settings_persons(env_vars : dict[str, str], auto = True) -> list:
         # Escribir las variables modificadas de nuevo en el archivo .env
         write_env_file(env_vars)
     return people
+
+def write_env_file(env_vars : dict[str, str]):
+    dotenv_path = Path('.env')
+    # Modo r+ para evitar permiso denegado al escribir
+    with open(dotenv_path, 'r+') as f:
+        for key, value in env_vars.items():
+            f.write(f'{key}={value}\n')

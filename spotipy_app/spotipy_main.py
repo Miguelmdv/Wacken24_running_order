@@ -26,9 +26,11 @@ def main_path(load_spotify_data = True):
         print(f"Error al comparar los artistas de Spotify: {e}")
         return
     
+    custom_list_spotify()
+    
 def custom_list_spotify():
     while True:
-        response = input("\nQuieres crear una lista de reproducción con todas tus canciones favoritas de los artistas del Wacken? Y/N: ")
+        response = input("\nQuieres crear una lista de reproducción con todas tus canciones favoritas de los artistas del Wacken?\nY/N: ")
         
         if response == "Y" or response == "y":
             try:
@@ -40,7 +42,7 @@ def custom_list_spotify():
             break
         elif response == "N" or response == "n":
             break
-        print(f"{response} no es un carácter válido.")
+        print(f"'{response}' no es un carácter válido.")
     
 def run():
     # Ruta del archivo con todos los artistas de spotify
@@ -49,15 +51,13 @@ def run():
     # Verifica si el archivo CSV existe
     if csv_file_path.exists():
         while True:
-            response = input("Ya existen datos. Esto puede llevar tiempo. Quieres recargar tus artistas de Spotify? Y/N: ")
+            response = input("\nQuieres recargar los datos de tus artistas de Spotify? Esto puede llevar tiempo.\nY/N: ")
             if response == "Y" or response == "y":
                 main_path()
                 break
             elif response == "N" or response == "n":
                 main_path(load_spotify_data = False)
                 break
-            print(f"{response} no es un carácter válido.")
-        custom_list_spotify()
+            print(f"'{response}' no es un carácter válido.")
     else:
         main_path()
-        custom_list_spotify()

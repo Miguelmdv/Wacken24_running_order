@@ -11,6 +11,8 @@ def run():
     # Cargar el contenido del archivo HTML
     with open(html_file, 'r', encoding='utf-8') as file:
         html_content = file.read()
+        
+    print("\nCreando el horario...\n")
 
     # Parsear el contenido del archivo HTML con BeautifulSoup
     soup = BeautifulSoup(html_content, 'html.parser')
