@@ -32,7 +32,7 @@ def custom_list_spotify():
     while True:
         response = input("\nQuieres crear una lista de reproducción con todas tus canciones favoritas de los artistas del Wacken?\nY/N: ")
         
-        if response == "Y" or response == "y":
+        if response.lower() == "y":
             try:
                 print("\nCreando lista de reproducción en Spotify...\n")
                 My_Wacken_Artist_to_Spotify.run()
@@ -40,7 +40,7 @@ def custom_list_spotify():
                 print(f"Error al crear la lista de reproducción: {e}")
                 return
             break
-        elif response == "N" or response == "n":
+        if response.lower() == "n":
             break
         print(f"'{response}' no es un carácter válido.")
     
@@ -52,10 +52,10 @@ def run():
     if csv_file_path.exists():
         while True:
             response = input("\nQuieres recargar los datos de tus artistas de Spotify? Esto puede llevar tiempo.\nY/N: ")
-            if response == "Y" or response == "y":
+            if response.lower() == "y":
                 main_path()
                 break
-            elif response == "N" or response == "n":
+            if response.lower() == "n":
                 main_path(load_spotify_data = False)
                 break
             print(f"'{response}' no es un carácter válido.")

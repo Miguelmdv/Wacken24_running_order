@@ -62,9 +62,9 @@ def manage_settings(env_vars : dict[str, str], auto_settings : bool) -> list:
         while True:
             response = input("\nQuieres usar los ajustes automáticos? Sino, podrás cambiar los nombres y numero de las personas.\nY/N: ")
             
-            if response == "Y" or response == "y":
+            if response.lower() == "y":
                 break
-            elif response == "N" or response == "n":
+            if response.lower() == "n":
                 auto_settings = False
                 break
             print(f"'{response}' no es un carácter válido.")

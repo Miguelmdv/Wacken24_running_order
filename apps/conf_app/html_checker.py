@@ -11,41 +11,38 @@ def check():
 
     while True:
         # Verificar si los archivos HTML no existen
-        if not file1_path.exists() and not file2_path.exists():
-            print("No existen los archivos HTML en la ruta 'html'.\n")
+        if not file1_path.exists() or not file2_path.exists():
+            print("\nNo existen los archivos HTML en la ruta 'html'.\n")
             print("Quieres descargar los archivos HTML?")
         else:
             print("Quieres actualizar los archivos HTML?")
         
         response = input("Y/N: ")
 
-        if response == "Y" or response == "y":
+        if response.lower() == "y":
             try:
                 edgenium.run()
                 return
             except Exception as e:
                 print(f"Error al descargar los archivos html: {e}")
                 return
-        elif response == "N" or response == "n":
+        elif response.lower() == "n":
             # Verificar si los archivos HTML no existen
-            if not file1_path.exists() and not file2_path.exists():
-                print(
-                    "\nEn caso de no descargar los archivos, deberás descargarlos por tu cuenta en la carpeta 'html'\n",
-                    "y el programa se cerrara.\n",
-                )
+            if not file1_path.exists() or not file2_path.exists():
+                print("\nEn caso de no descargar los archivos, deberás descargarlos por tu cuenta en la carpeta 'html' y el programa se cerrara.\n",)
                 while True:
-                    
                     response = input("Estas seguro? Y/N: ")
-
-                    if response == "Y" or response == "y":
+                    if response.lower() == "y":
                         input("\nPresiona Enter para terminar...")
                         exit("Programa cerrado.")
-                    elif response == "N" or response == "n":
+                    elif response.lower() == "n":
                         break
-                    print(f"'{response}' no es un carácter válido.")
+                    else:
+                        print(f"'{response}' no es un carácter válido.")
             else:
                 break
-        print(f"'{response}' no es un carácter válido.")
+        else:
+            print(f"'{response}' no es un carácter válido.")
 
 
 def run():
