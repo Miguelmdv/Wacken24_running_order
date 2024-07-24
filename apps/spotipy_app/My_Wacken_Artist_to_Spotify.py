@@ -2,8 +2,8 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from spotipy.cache_handler import CacheFileHandler
 import pandas as pd
-from pathlib import Path
 from apps.conf_app.config_env import load_env_vars
+from file_paths import ART_WA_C_FILE
 
 def run():
     # Carga las variables de entorno
@@ -24,9 +24,8 @@ def run():
         )
     )
 
-    csv_file_path = Path("data/liked_artists_wacken_with_count.csv")
     # Leer el archivo CSV
-    df = pd.read_csv(csv_file_path)
+    df = pd.read_csv(ART_WA_C_FILE)
 
     # Asegúrate de que la columna se llama 'Artista'
     artistas = df['Artista'].tolist()

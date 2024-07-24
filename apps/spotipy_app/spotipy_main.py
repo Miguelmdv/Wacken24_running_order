@@ -1,8 +1,8 @@
-from pathlib import Path
 from apps.spotipy_app import Wacken_Artist_From_html
 from apps.spotipy_app import MyArtists_From_Spotify_count   
 from apps.spotipy_app import Common_Artist_with_count
 from apps.spotipy_app import My_Wacken_Artist_to_Spotify
+from file_paths import ALL_ART_W_C_FILE
         
 def main_path(load_spotify_data = True):
         
@@ -45,11 +45,8 @@ def custom_list_spotify():
         print(f"'{response}' no es un carácter válido.")
     
 def run():
-    # Ruta del archivo con todos los artistas de spotify
-    csv_file_path = Path("data/all_liked_artists_wacken_with_count.csv")
-    
     # Verifica si el archivo CSV existe
-    if csv_file_path.exists():
+    if ALL_ART_W_C_FILE.exists():
         while True:
             response = input("\nQuieres recargar los datos de tus artistas de Spotify? Esto puede llevar tiempo.\nY/N: ")
             if response.lower() == "y":

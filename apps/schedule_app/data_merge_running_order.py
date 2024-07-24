@@ -1,5 +1,6 @@
 import pandas as pd
 from pathlib import Path
+from file_paths import RUN_ORD_MERGED_FILE, RUN_ORD_VOID_FILE
 
 def reorganize(df : pd.DataFrame):
     # Convertir la columna 'Hora_Inicio' a formato datetime
@@ -65,11 +66,8 @@ def run(people : list):
     schedule_df.insert(3, 'Hora_Inicio', schedule_df.pop('Hora_Inicio'))
     schedule_df.insert(4, 'Hora_Fin', schedule_df.pop('Hora_Fin'))
     
-    merged_rute = Path('data/wacken_running_order_merged.csv')
-    void_rute = Path('data/wacken_running_order_void.csv')
-    
     print("\nCombinando el horario...\n")
     
-    data_merge(schedule_df, songs_df, "left", merged_rute, people)
-    data_merge(schedule_df, songs_df, "right", void_rute, people, drop=True)
+    data_merge(schedule_df, songs_df, "left", RUN_ORD_MERGED_FILE, people)
+    data_merge(schedule_df, songs_df, "right", RUN_ORD_VOID_FILE, people, drop=True)
     

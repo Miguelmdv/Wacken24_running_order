@@ -2,15 +2,10 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from spotipy.cache_handler import CacheFileHandler
 import pandas as pd
-from pathlib import Path
+from file_paths import ART_SPO_C_FILE
 from apps.conf_app.config_env import load_env_vars
 
 def run():
-
-    csv_file_path = Path("data/liked_artists_spoti_with_count.csv")
-    # Si la carpeta "data" no existe, créala
-    csv_file_path.parent.mkdir(parents=True, exist_ok=True)
-
     # Carga las variables de entorno
     env_vars = load_env_vars()
     # Configura tu información de autenticación de Spotify
@@ -54,7 +49,7 @@ def run():
     df = pd.DataFrame(liked_artists_list, columns=["Artista", "Numero de Canciones"])
 
     # Guarda el DataFrame en un archivo CSV
-    df.to_csv(csv_file_path, index=False)
+    df.to_csv(ART_SPO_C_FILE, index=False)
     print(
-        f"La lista de artistas y el número de canciones se ha guardado en {csv_file_path}"
+        f"La lista de artistas y el número de canciones se ha guardado en {ART_SPO_C_FILE}"
     )

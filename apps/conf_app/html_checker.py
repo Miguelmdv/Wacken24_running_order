@@ -1,17 +1,12 @@
 import apps.conf_app.edgenium as edgenium
-from pathlib import Path
+from file_paths import BANDS_FILE, RUNNING_FILE
 
 
 def check():
-    html_path = Path("html")
-    # Si la carpeta "html" no existe, crearla
-    html_path.mkdir(exist_ok=True)
-    file1_path = html_path / "Bands _ Wacken Open Air.html"
-    file2_path = html_path / "Complete Running Order _ Wacken Open Air.html"
 
     while True:
         # Verificar si los archivos HTML no existen
-        if not file1_path.exists() or not file2_path.exists():
+        if not BANDS_FILE.exists() or not RUNNING_FILE.exists():
             print("\nNo existen los archivos HTML en la ruta 'html'.\n")
             print("Quieres descargar los archivos HTML?")
         else:
@@ -28,7 +23,7 @@ def check():
                 return
         elif response.lower() == "n":
             # Verificar si los archivos HTML no existen
-            if not file1_path.exists() or not file2_path.exists():
+            if not BANDS_FILE.exists() or not RUNNING_FILE.exists():
                 print("\nEn caso de no descargar los archivos, deberás descargarlos por tu cuenta en la carpeta 'html' y el programa se cerrara.\n",)
                 while True:
                     response = input("Estas seguro? Y/N: ")

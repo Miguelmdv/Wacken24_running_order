@@ -1,26 +1,24 @@
 from dotenv import dotenv_values
-from pathlib import Path
+from file_paths import ENV_FILE
 import subprocess
 
 def load_env_vars() -> dict[str, str]:
-    dotenv_path = Path('.env')
-    env_vars = dotenv_values(dotenv_path)
+    env_vars = dotenv_values(ENV_FILE)
     return env_vars
 
 def manage_env_file() -> list: 
-    dotenv_path = Path('.env')
     # Crear el archivo .env si no existe
-    if dotenv_path.exists() and dotenv_path.stat().st_size > 0:
+    if ENV_FILE.exists() and ENV_FILE.stat().st_size > 0:
         # Si el archivo existe, carga las variables y devuelve env_vars y False
-        env_vars = dotenv_values(dotenv_path)
+        env_vars = dotenv_values(ENV_FILE)
         people = manage_settings(env_vars, True)
         return people
     else:
         # Crear el archivo vacío
-        dotenv_path.touch()
-        subprocess.run(['attrib', '+h', str(dotenv_path)])
+        ENV_FILE.touch()
+        subprocess.run(['attrib', '+h', str(ENV_FILE)])
             # Establecer permisos seguros
-        dotenv_path.chmod(0o600)
+        ENV_FILE.chmod(0o600)
         
         print("\nCreando archivo de configuración por primera vez.")
         print("Se necesitan los datos de desarrollador de Spotify.\n")
@@ -108,8 +106,7 @@ def settings_persons(env_vars : dict[str, str], auto = True) -> list:
     return people
 
 def write_env_file(env_vars : dict[str, str]):
-    dotenv_path = Path('.env')
     # Modo r+ para evitar permiso denegado al escribir
-    with open(dotenv_path, 'r+') as f:
+    with open(ENV_FILE, 'r+') as f:
         for key, value in env_vars.items():
             f.write(f'{key}={value}\n')
