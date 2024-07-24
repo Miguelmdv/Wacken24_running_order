@@ -22,6 +22,8 @@ def run():
     scenarios = []
     times = []
     artists = []
+    details = []
+    doors = []
 
     # Variables de control para el día y escenario actuales
     current_day = "Domingo"
@@ -31,6 +33,9 @@ def run():
     # Inicializar variables para el tiempo y escenario actuales
     current_time = None
     current_scenario = None
+    current_doors = None
+    # Str que aparece en la apertura de puertas del escenario
+    door_str = "Doors: "
 
     # Lista de escenarios reconocidos
     recognized_scenarios = (
@@ -44,10 +49,12 @@ def run():
     change_day = False
     # Variable para saber si estamos dentro de una etiqueta <a>
     inside_a_tag = False
+    inside_artist_detail = False
 
     # Iterar sobre todos los elementos del cuerpo del HTML
     for item in soup.body.descendants:
         if item.name == 'h4':
+            inside_artist_detail = False
             # Cambiar de escenario solo si está en la lista de escenarios reconocidos
             scenario_text = item.get_text(strip=True).upper()
             if scenario_text in recognized_scenarios:
@@ -64,8 +71,12 @@ def run():
                     change_day = True
             else:
                 wanted_scenario = False
+        # Extrae el horario de apertura de puertas del escenario 
+        elif door_str in item:
+            current_doors = str(item).replace(door_str, "")
                     
         elif item.name == 'div' and 'ro-list-time mr-2' in ' '.join(item.get('class', [])) and wanted_scenario:
+            inside_artist_detail = False
             # Extraer el rango horario
             current_time = item.get_text(strip=True)
             
@@ -74,21 +85,33 @@ def run():
             
         elif item.name == 'strong' and inside_a_tag and wanted_scenario:
             inside_a_tag = False
+            inside_artist_detail = True
             # Extraer el nombre del artista
             artist = item.get_text(strip=True)
             if current_time and current_scenario:
                 # Agregar los datos a las listas solo si tiempo y escenario están definidos
                 days.append(current_day)
                 scenarios.append(current_scenario)
+                doors.append(current_doors)
                 times.append(current_time)
                 artists.append(artist)
+                details.append("_")
+        # Extrae los datos extra de los artistas si los hubiera
+        elif item.name == 'strong' and inside_artist_detail:
+            if current_time and current_scenario:
+                inside_artist_detail = False
+                detail = item.get_text(strip=True)
+                details[-1] = detail
+
 
     # Crear un DataFrame con los datos extraídos
     data = {
         'Día': days,
         'Escenario': scenarios,
+        'Apertura Puertas': doors,
         'Horario': times,
-        'Artista': artists
+        'Artista': artists,
+        'Detalle': details
     }
     df = pd.DataFrame(data)
     
