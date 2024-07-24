@@ -8,7 +8,6 @@ Also the creation of a personalized spotify list based on personal tastes of the
 
 https://www.wacken.com/en/
 
-**Currently WIP** the excel export and some extra configuration.
 
 ## Easy Installation
 

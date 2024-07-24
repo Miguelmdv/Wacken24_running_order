@@ -36,3 +36,5 @@ MSEDGEDRIVER_FILE = DRIVER_DIR / "msedgedriver.exe"
 PATH_OS = os.environ.get('PATH', '')
 # Dividir el PATH en las diferentes rutas
 PATH_DIRS = PATH_OS.split(os.pathsep)
+
+EXCEL_FILE = BASE_DIR / "Final Running Order Wacken24.xlsx"
