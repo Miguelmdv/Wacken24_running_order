@@ -1,6 +1,5 @@
 import pandas as pd
 from openpyxl import load_workbook
-from openpyxl.utils.dataframe import dataframe_to_rows
 from openpyxl.formatting.rule import ColorScaleRule
 from openpyxl.worksheet.table import Table, TableStyleInfo
 from file_paths import RUN_ORD_MERGED_FILE, EXCEL_FILE
